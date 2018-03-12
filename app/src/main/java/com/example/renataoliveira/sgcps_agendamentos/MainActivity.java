@@ -1,5 +1,6 @@
 package com.example.renataoliveira.sgcps_agendamentos;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,31 +14,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.authentication);
 
-        TextView userField = (TextView) findViewById(R.id.userField);
-        TextView passwordField = (TextView) findViewById(R.id.passwordField);
+        TextView fieldUser = (TextView) findViewById(R.id.userField);
+        TextView fieldPassword = (TextView) findViewById(R.id.passwordField);
 
-        String userText = userField.toString();
-        String passwordText = passwordField.toString();
+        String txtUser = fieldUser.toString();
+        String txtPassword = fieldPassword.toString();
 
         Button buttonAccess = (Button)findViewById(R.id.buttonAuthentication);
 
-        buttonAccess.setOnClickListener(onClickLogin());
-    }
-
-    private View.OnClickListener onClickLogin() {
-        return new View.OnClickListener() {
+        buttonAccess.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                TextView userField = (TextView) findViewById(R.id.userField);
-                TextView passwordField = (TextView) findViewById(R.id.passwordField);
 
-                String userText = userField.getText().toString();
-                String passwordText = passwordField.getText().toString();
-
-                Toast.makeText(MainActivity.this, "Usuário: " + userText + "; Senha: " + passwordText, Toast.LENGTH_LONG).show();
-
+                Intent launchActivity1= new Intent(MainActivity.this, Dashboard.class);
+                startActivity(launchActivity1);
             }
-        };
+        });
+
+
     }
 }
