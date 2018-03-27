@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">sgcps-agendamentos</string>
+
+    <string name="action_buscar">Procurar</string>
+    <string name="action_atualizar">Atualizar</string>
+    <string name="action_adicionar">Adicionar</string>
+    <string name="action_config">Configurações</string>
+    <string name="action_share">Compartilhar</string>
 </resources>

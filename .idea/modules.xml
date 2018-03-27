@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sgcps.iml" filepath="$PROJECT_DIR$/sgcps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sgcps-agendamentos.iml" filepath="$PROJECT_DIR$/sgcps-agendamentos.iml" />
     </modules>
   </component>
 </project>
