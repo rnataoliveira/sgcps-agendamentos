@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.fernandosousa.brewerapp.CadastroActivity"
+    tools:context="com.example.renataoliveira.sgcps_agendamentos.CadastroActivity"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -69,9 +69,16 @@
         android:ems="10"
         android:inputType="textMultiLine" />
 
+    <CheckBox
+        android:id="@+id/checkLembrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salvar para auto preenchimento" />
+
     <Button
         android:id="@+id/botaoCadastro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Salvar" />
+
 </LinearLayout>

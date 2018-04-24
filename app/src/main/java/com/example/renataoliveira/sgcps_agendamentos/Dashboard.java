@@ -11,18 +11,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Renata Oliveira on 11/03/2018.
  */
 
 public class Dashboard extends  DebugActivity {
-    private String [] listaDeCompromissos = new String[]{"Entregar Contratos", "Receber Pagamento da Maria", "Ligar Para Planos de Saúde", "Fidelizar Clientes"};
+    private String [] listadeAgendamentos = new String[]{"Entregar Contratos", "Receber Pagamento da Maria", "Ligar Para Planos de Saúde", "Fidelizar Clientes"};
+    private List<Agendamento> agendamentos;
+    private ListView lista;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +59,21 @@ public class Dashboard extends  DebugActivity {
         //Alterar texto da ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Início");
+
+        setContentView(R.layout.activity_tela_inicial_2);
+        lista = (ListView)findViewById(R.id.listaElementos);
+
+        agendamentos = Agendamento.getAgendamentos();
+        lista.setAdapter(new AgendamentosAdapter(Dashboard.this,agendamentos ));
+
+        lista.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int index, long id) {
+
+                Toast.makeText(Dashboard.this, "Selecionado "+ agendamentos.get(index).nome, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     // Tratamento do evento de clique no botao de sair
@@ -124,13 +147,13 @@ public class Dashboard extends  DebugActivity {
 
             if (resultCode == RESULT_OK) {
                 StringBuffer textoRetorno = new StringBuffer();
-                textoRetorno.append(data.getStringExtra("nomeCompromisso"));
+                textoRetorno.append(data.getStringExtra("nomeAgendamento"));
                 textoRetorno.append("\n");
-                textoRetorno.append(data.getStringExtra("dataCompromisso"));
+                textoRetorno.append(data.getStringExtra("dataAgendamento"));
                 textoRetorno.append("\n");
-                textoRetorno.append(data.getStringExtra("horaCompromisso"));
+                textoRetorno.append(data.getStringExtra("horaAgendamento"));
                 textoRetorno.append("\n");
-                textoRetorno.append(data.getStringExtra("localCompromisso"));
+                textoRetorno.append(data.getStringExtra("localAgendamento"));
                 textoRetorno.append("\n");
 
                 TextView texto = (TextView) findViewById(R.id.dashboardText);
@@ -148,25 +171,37 @@ public class Dashboard extends  DebugActivity {
             // Tratamento do evento quando termina de escrever
             public boolean onQueryTextSubmit(String query) {
                 query = query.toLowerCase();
-                Toast.makeText(Dashboard.this, query, Toast.LENGTH_SHORT).show();
-                String results = "";
-                for (String compromisso: listaDeCompromissos) {
-                    if(compromisso.toLowerCase().contains(query)){
-                        results += compromisso +"\n";
-                    }
-                }
-                TextView texto = (TextView) findViewById(R.id.dashboardText);
-                texto.setText(results);
+//                Toast.makeText(Dashboard.this, query, Toast.LENGTH_SHORT).show();
+//                String results = "";
+//                for (String agendamento: listaDeAgendamentos) {
+//                    if(agendamento.toLowerCase().contains(query)){
+//                        results += agendamento +"\n";
+//                    }
+//                }
+//                TextView texto = (TextView) findViewById(R.id.dashboardText);
+//                texto.setText(results);
+                buscaAgendamento(query);
                 return false;
             }
 
             @Override
             // Tratamento do evento enquanto ainda está escrevendo
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(Dashboard.this, newText, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Dashboard.this, newText, Toast.LENGTH_SHORT).show();
+                buscaAgendamento(newText);
                 return false;
             }
         };
+    }
+
+    private void buscaAgendamento(String query) {
+        List<Agendamento> results = new ArrayList<Agendamento>();
+        for (Agendamento agendamento: agendamentos) {
+            if(agendamento.nome.toLowerCase().contains(query)){
+                results.add(agendamento);
+            }
+        }
+        lista.setAdapter(new AgendamentosAdapter(Dashboard.this,results ));
     }
 
 
@@ -174,10 +209,10 @@ public class Dashboard extends  DebugActivity {
         // Intent ACTION_SEND. Qualquer app que responde essa intenção pode ser chamado
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/*");
-        String textoShare = "Minha lista de compromissos! \n";
+        String textoShare = "Minha lista de agendamentos! \n";
 
-        for (String compromisso: listaDeCompromissos) {
-            textoShare += compromisso +"\n";
+        for (String agendamento: listadeAgendamentos) {
+            textoShare += agendamento +"\n";
         }
         intent.putExtra(Intent.EXTRA_TEXT, textoShare);
         return intent;
