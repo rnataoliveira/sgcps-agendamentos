@@ -30,7 +30,9 @@ public class Agendamento {
         agendamentos.add(new Agendamento("Visitar Cliente", "10/04/2018", "9:00", "Rua das Flores", 0));
         agendamentos.add(new Agendamento("Visitar Cliente", "10/04/2018", "9:00", "Rua das Flores", 1));
         agendamentos.add(new Agendamento("Visitar Cliente", "10/04/2018", "9:00", "Rua das Flores", 1));
-
+        agendamentos.add(new Agendamento("Buscar Contrato João", "10/04/2018", "9:00", "Rua das Flores", 1));
+        agendamentos.add(new Agendamento("Entregar Contrato Maria", "10/04/2018", "9:00", "Rua das Flores", 1));
+        agendamentos.add(new Agendamento("Entregar Contrato Davi", "10/04/2018", "9:00", "Rua das Flores", 1));
         return agendamentos;
     }
 }
