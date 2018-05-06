@@ -24,14 +24,14 @@ public class CadastroActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button botao =(Button)findViewById(R.id.botaoCadastro);
+        Button botao = (Button)findViewById(R.id.botaoCadastro);
         botao.setOnClickListener(clickCadastro());
 
         CheckBox check = (CheckBox) findViewById(R.id.checkLembrar);
         check.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(CadastroActivity.this, "Favorita: " + isChecked, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CadastroActivity.this, "Lembrar: " + isChecked, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -56,7 +56,6 @@ public class CadastroActivity extends AppCompatActivity {
 
         }
     }
-
 
 
     public View.OnClickListener clickCadastro() {
@@ -96,7 +95,8 @@ public class CadastroActivity extends AppCompatActivity {
                 agendamentoDB.save(agendamento);
 
                 setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+                setContentView(R.layout.dashboard);
+//                finish();
             }
         };
     }

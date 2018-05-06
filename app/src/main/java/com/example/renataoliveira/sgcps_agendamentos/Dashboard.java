@@ -52,6 +52,12 @@ public class Dashboard extends  DebugActivity {
             texto.setText(nome);
         }
 
+        Button botaoVerAgendamentos = (Button) findViewById(R.id.buttonSeeSavedAppointments);
+        botaoVerAgendamentos.setOnClickListener(clickAgendamentos());
+
+        Button botaoAddAgendamento = (Button) findViewById(R.id.buttonAddAppointment);
+        botaoAddAgendamento.setOnClickListener(clickAddAgendamento());
+
         // Recupera o botão de sair e vincula um evento de clique
         Button botaoSair = (Button) findViewById(R.id.buttonOut);
         botaoSair.setOnClickListener(clickSair());
@@ -60,20 +66,40 @@ public class Dashboard extends  DebugActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Início");
 
-        setContentView(R.layout.activity_tela_inicial_2);
-        lista = (ListView)findViewById(R.id.listaElementos);
+    }
 
-        agendamentos = Agendamento.getAgendamentos();
-        lista.setAdapter(new AgendamentosAdapter(Dashboard.this,agendamentos ));
+    public View.OnClickListener clickAgendamentos() {
+        return new View.OnClickListener() {
 
-        lista.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int index, long id) {
+            public void onClick(View view) {
+                setContentView(R.layout.activity_tela_inicial_2);
+                lista = (ListView)findViewById(R.id.listaElementos);
 
-                Toast.makeText(Dashboard.this, "Selecionado "+ agendamentos.get(index).nome, Toast.LENGTH_SHORT).show();
+                agendamentos = Agendamento.getAgendamentos();
+                lista.setAdapter(new AgendamentosAdapter(Dashboard.this,agendamentos ));
+
+                lista.setOnItemClickListener(new ListView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int index, long id) {
+
+                        Toast.makeText(Dashboard.this, "Selecionado "+ agendamentos.get(index).nome, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
-        });
+        };
+    }
 
+    public View.OnClickListener clickAddAgendamento() {
+        return new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(Dashboard.this, CadastroActivity.class);
+                startActivityForResult(it, 1);
+            }
+        };
     }
 
     // Tratamento do evento de clique no botao de sair
@@ -83,7 +109,7 @@ public class Dashboard extends  DebugActivity {
             @Override
             public void onClick(View view) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result", "Saída do BrewerApp");
+                returnIntent.putExtra("result", "Saída do sgcps");
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
