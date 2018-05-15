@@ -1,11 +1,12 @@
 package com.example.renataoliveira.sgcps_agendamentos;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Agendamento {
+public class Agendamento   implements Serializable{
     public long id;
     public String nome;
     public String data;

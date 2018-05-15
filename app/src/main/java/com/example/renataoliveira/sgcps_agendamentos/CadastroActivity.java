@@ -95,8 +95,8 @@ public class CadastroActivity extends AppCompatActivity {
                 agendamentoDB.save(agendamento);
 
                 setResult(Activity.RESULT_OK, returnIntent);
-                setContentView(R.layout.dashboard);
-//                finish();
+               // setContentView(R.layout.dashboard);
+               finish();
             }
         };
     }
